@@ -15,7 +15,7 @@ function App() {
         <Route path='/sign-in' element={<SigninForm />} />
         <Route path='/sign-up' element={<SignupForm />} />
       </Route>
-      {/* private routes  - home  */}
+      {/* private routes  - Home  */}
       <Route element={<RootLayout />}>
         <Route index element={<Home />} />
       </Route>
