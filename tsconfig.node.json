@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true
   },
-  "include": ["src/vite.config.ts"]
+  "extends": "./tsconfig.json",
+  "include": ["vite.config.ts"],
+  "exclude": ["node_modules", "dist"]
 }
