@@ -15,13 +15,13 @@ const PostStats = ({post, userId}: PostStatsProps) => {
     const [likes, setLikes] = useState(likeList);
     const [isSaved, setIsSaved] = useState(false);
 
-    const {mutate: likePost} = useLikePost();
+    const {mutate: likePost } = useLikePost();
     const {mutate: savePost, isPending: isSavingPost} = useSavePost();
     const {mutate: deleteSavedPost, isPending: isDeletingPost} = useDeleteSavedPost();
     
     const { data: currentUser } = useGetCurrentUser();
 
-    const savedPostRecord = currentUser?.save.find((record: Models.Document)=> record.post.$id === post?.$id)
+    const savedPostRecord = currentUser?.save.find((record: Models.Document)=> record.post?.$id === post?.$id)
 
     useEffect(()=>{
         setIsSaved(!!savedPostRecord);
@@ -58,7 +58,7 @@ const PostStats = ({post, userId}: PostStatsProps) => {
     return (
     <div className="flex justify-between items-center z-20">
         <div className="flex gap-2 mr-5">
-            <img
+             <img
                 src={checkIsLiked(likes,userId)
                     ? "/assets/icons/liked.svg"
                     : "/assets/icons/like.svg"

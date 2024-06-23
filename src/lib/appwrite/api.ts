@@ -303,7 +303,7 @@ export async function updatePost(post: IUpdatePost) {
   }
 }
 
-export async function deletePost(postId: string, imageId: string) {
+export async function deletePost({postId, imageId}: {postId?: string, imageId: string}) {
   if(!postId || !imageId) throw Error;
 
   try {
@@ -357,4 +357,25 @@ export async function searchPosts(searchValue : string) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function getUsers(limit: number)
+{
+  const queries: any[]= [Query.orderDesc('$createdAt')];
+  if(limit) {
+    queries.push(Query.limit(limit));
+  }
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      queries,
+    )
+    if(!users) throw Error;
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+ 
 }

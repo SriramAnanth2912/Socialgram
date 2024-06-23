@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export const defaultTheme = import('tailwindcss/defaultTheme')
+export const defaultTheme = import('tailwindcss/defaultTheme');
 export const darkMode = ['class'];
 export const content = [
   './pages/**/*.{ts,tsx}',
@@ -54,6 +54,9 @@ export const theme = {
     animation: {
       'accordion-down': 'accordion-down 0.2s ease-out',
       'accordion-up': 'accordion-up 0.2s ease-out',
+    },
+    scale: {
+      '67': '0.67',
     },
   },
 };
