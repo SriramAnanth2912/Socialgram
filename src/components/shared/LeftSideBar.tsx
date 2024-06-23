@@ -25,8 +25,8 @@ return (
           <img
           src='/assets/images/logo.svg'
           alt='logo'
-          width={170}
-          height={36}
+          width={175}
+          height={38}
           />
         </Link>
         <Link to={`/profile/${user.id}`} className='flex gap-3 items-center'>
