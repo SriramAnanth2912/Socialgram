@@ -359,9 +359,9 @@ export async function searchPosts(searchValue : string) {
   }
 }
 
-export async function getUsers(limit: number)
+export async function getUsers(limit?: number)
 {
-  const queries: any[]= [Query.orderDesc('$createdAt')];
+  const queries: string[]= [Query.orderDesc('$createdAt')];
   if(limit) {
     queries.push(Query.limit(limit));
   }
@@ -378,4 +378,19 @@ export async function getUsers(limit: number)
     console.log(error);
   }
  
+}
+
+export async function getSavedPosts(){
+  try {
+    const queries: string[]= [Query.orderDesc('$updatedAt')];
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      queries
+    )
+    if(!posts) throw Error;
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
 }

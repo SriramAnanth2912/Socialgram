@@ -13,8 +13,9 @@ const Home = () => {
     isLoading: isUserLoading,
     isError: isErrorCreators,
   } = useGetUsers(10);
-
+  
   if (isErrorPosts || isErrorCreators) {
+    toast({ title: 'Something went wrong', });
     return (
       <div className="flex flex-1">
         <div className="home-container">
@@ -26,7 +27,6 @@ const Home = () => {
       </div>
     );
   }
-  if(isErrorPosts) return toast({ title: 'Something went wrong', });
 
   return (
     <div className='flex flex-1'>
