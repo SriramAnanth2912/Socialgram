@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
  }
 
 const UserCard = ({user}: UserCardProps) => {
-    console.log({user});
   return (
     <Link to={`/profile/${user.$id}`} className="user-card">
     <img
