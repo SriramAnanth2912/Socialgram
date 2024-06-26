@@ -428,8 +428,8 @@ export async function updateUser(user:IUpdateUser) {
         await deleteFile(uploadedFile.$id);
         throw Error;
       }
-
       image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
+      console.log(image.imageUrl);
     }
     const updatedUser = await databases.updateDocument(
       appwriteConfig.databaseId,
@@ -438,8 +438,8 @@ export async function updateUser(user:IUpdateUser) {
       {
         name: user.name,
         bio: user.bio,
-        imageId: user.imageId,
-        imageUrl: user.imageUrl
+        imageId: image.imageId,
+        imageUrl: image.imageUrl
       }
     )
     if (!updatedUser) {

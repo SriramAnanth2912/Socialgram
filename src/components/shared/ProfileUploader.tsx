@@ -25,17 +25,17 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      "image/*": [".png", ".jpeg", ".jpg"],
+      "image/*": [".png", ".jpeg", ".jpg", ".svg", ".ico"],
     },
   });
-
+console.log({fileUrl});
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} className="cursor-pointer" />
 
       <div className="cursor-pointer flex-center gap-4">
         <img
-          src={fileUrl || "/assets/icons/profile-placeholder.svg"}
+          src={fileUrl? fileUrl : "/assets/icons/profie-placeholder.svg"}
           alt="image"
           className="h-24 w-24 rounded-full object-cover object-top"
         />

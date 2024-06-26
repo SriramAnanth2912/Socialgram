@@ -39,9 +39,10 @@ const UpdateProfile = () => {
 
   // Queries
   const { data: currentUser } = useGetUserById(id || "");
-  const { mutateAsync: updateUser, isPending: isLoadingUpdate } =
-    useUpdateUser();
-
+  const { mutateAsync: updateUser, isPending: isLoadingUpdate } = useUpdateUser();
+  
+  console.log({user});
+  
   if (!currentUser)
     return (
       <div className="flex-center w-full h-full">
@@ -50,12 +51,12 @@ const UpdateProfile = () => {
     );
 
   // Handler
-  const handleUpdate = async (value: z.infer<typeof ProfileValidation>) => {
+  const handleUpdate = async (values: z.infer<typeof ProfileValidation>) => {
     const updatedUser = await updateUser({
       userId: currentUser.$id,
-      name: value.name,
-      bio: value.bio,
-      file: value.file,
+      name: values.name,
+      bio: values.bio,
+      file: values.file,
       imageUrl: currentUser.imageUrl,
       imageId: currentUser.imageId,
     });
