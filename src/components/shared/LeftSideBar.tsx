@@ -20,13 +20,13 @@ const LeftSideBar = () => {
   
 return (
     <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
+      <div className="flex flex-col gap-9">
       <Link to='/' className='flex gap-3 items-center'>
           <img
           src='/assets/images/logo.svg'
           alt='logo'
-          width={175}
-          height={38}
+          width={165}
+          height={34}
           />
       </Link>
       <Link to={`/profile/${user.id}`} className='flex gap-3 items-center'>
@@ -40,7 +40,7 @@ return (
             <p className='small-regular text-light-3'>@{user.username}</p>
           </div>
       </Link>
-        <ul className='flex flex-col gap-6'>
+        <ul className='flex flex-col gap-3'>
           {
             sidebarLinks.map((Link: INavLink) =>{
               const isActive = pathname === Link.route;
@@ -50,7 +50,7 @@ return (
                 >
                 <NavLink 
                   to={Link.route}
-                  className='flex gap-4 items-center p-4'
+                  className='flex gap-3 items-center p-3'
                   >
                     <img 
                       src={Link.imgURL}

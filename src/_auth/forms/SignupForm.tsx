@@ -67,10 +67,12 @@ const SignupForm = () => {
         <div className="sm:w-420 flex-center flex-col">
           <img 
           src='/assets/images/logo.svg'
-          alt='Logo'/>
-          <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
+          alt='Logo'
+          className="lg:mt-3"
+          />
+          <h2 className="h3-bold md:h2-bold pt-4 sm:pt-12 lg:pt-0 lg:h4-bold">Create a new account</h2>
           <p className="text-light-3 small-medium md:base-regular mt-2">To use Socialgram, please enter your details</p>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4 lg:gap-5 lg:w-200">
             <FormField
               control={form.control}
               name="name"
