@@ -6,6 +6,8 @@ import AuthLayout from './_auth/AuthLayout';
 import { AllUsers, CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from './_root/pages';
 import SignupForm from './_auth/forms/SignupForm';
 import { Toaster } from "@/components/ui/toaster"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
      </Routes>
      
      <Toaster />
+     <Analytics />
+     <SpeedInsights />
     </main>
   )
 }
