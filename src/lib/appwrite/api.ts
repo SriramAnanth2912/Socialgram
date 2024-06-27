@@ -88,13 +88,17 @@ export async function createPost(post: INewPost){
     // Upload image to storage
     const uploadedFile = await uploadFile(post.file[0]);
 
-    if(!uploadedFile) throw Error;
+    if(!uploadedFile) {
+      console.log("error in uploaded file");
+      throw Error;
+    }
 
     // Get fileUrl
     const fileUrl = getFilePreview(uploadedFile.$id);
 
     if(!fileUrl){
       await deleteFile(uploadedFile.$id);
+      console.log("error in file url");
       throw Error;
     }
 
@@ -114,9 +118,10 @@ export async function createPost(post: INewPost){
         location: post.location,
         tags: tags
       })
-
+      console.log({newPost});
       if(!newPost) {
         await deleteFile(uploadedFile.$id);
+        console.log("error in new post");
         throw Error;
       }
 
@@ -307,13 +312,17 @@ export async function deletePost({postId, imageId}: {postId?: string, imageId: s
   if(!postId || !imageId) throw Error;
 
   try {
-    await databases.deleteDocument(
+    const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
-      postId,
-    )
+      postId
+    );
 
-    return { status: 'ok' };
+    if (!statusCode) throw Error;
+
+    await deleteFile(imageId);
+
+    return { status: "Ok" };
   } catch (error) {
     console.log(error);
   }
