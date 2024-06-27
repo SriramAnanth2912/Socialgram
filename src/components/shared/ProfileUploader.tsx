@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
-
+import imageCompression from 'browser-image-compression';
 import { convertFileToUrl } from "@/lib/utils";
 
 type ProfileUploaderProps = {
@@ -8,15 +8,43 @@ type ProfileUploaderProps = {
   mediaUrl: string;
 };
 
+const compressImage = async (file: File): Promise<File> => {
+  const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+  };
+  try {
+      const compressedBlob = await imageCompression(file, options);
+      // Check if the compressed file is an instance of File
+      if (compressedBlob instanceof File) {
+          return compressedBlob;
+      }
+      // If not, convert the Blob to a File
+      const compressedFile = new File(
+          [compressedBlob], 
+          file.name, 
+          { type: file.type, lastModified: Date.now() }
+      );
+      return compressedFile;
+  } catch (error) {
+      console.error('Error during compression:', error);
+      return file;
+  }
+};
+
 const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
 
   const onDrop = useCallback(
-    (acceptedFiles: FileWithPath[]) => {
-      setFile(acceptedFiles);
-      fieldChange(acceptedFiles);
-      setFileUrl(convertFileToUrl(acceptedFiles[0]));
+    async (acceptedFiles: FileWithPath[]) => {
+      const compressedFilesPromises = acceptedFiles.map(file => compressImage(file));
+            const compressedFiles = await Promise.all(compressedFilesPromises);
+            
+            setFile(compressedFiles);
+            fieldChange(compressedFiles);
+            setFileUrl(convertFileToUrl(compressedFiles[0]));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [file]
